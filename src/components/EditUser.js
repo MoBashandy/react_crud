@@ -11,7 +11,7 @@ function EditUser() {
     }, [id]);
 
     function getUser(){
-        axios.get(`http://localhost/react_crud/api/user/${id}`).then(function(responce){
+        axios.get(`http://localhost/api/user/${id}`).then(function(responce){
             console.log(responce.data);
             setInputs(responce.data);
         }) ;
@@ -24,7 +24,7 @@ function EditUser() {
 
     const handleSubmit =(event)=>{
         event.preventDefault();
-        axios.put(`http://localhost/react_crud/api/user/${id}/edit`,inputs).then(function(responce){
+        axios.put(`http://localhost/api/user/${id}/edit`,inputs).then(function(responce){
             console.log(responce.data);
             navigate('/');
         }) ;
