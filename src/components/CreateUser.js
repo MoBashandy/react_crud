@@ -12,7 +12,7 @@ function CreateUser() {
     };
     const handleSubmit =(event)=>{
         event.preventDefault();
-        axios.post('http://localhost/api/user/save',inputs).then(function(responce){
+        axios.post('http://localhost/react-crud/api/user/save',inputs).then(function(responce){
             console.log(responce.data);
             navigate('/');
         }) ;

@@ -1,23 +1,29 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
 
 function Listuser() {
     const [users, setUsers] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         getUsers();
     }, []);
 
-    function getUsers(){
-        axios.get('http://localhost/api/user/save').then(function(responce){
-            console.log(responce.data);
-            setUsers(responce.data);
-        }) ;
-    }
-    
-    return(
+    function getUsers() {
+        axios.get('http://localhost/react-crud/api/user').then(function(response) {
+            console.log(response.data);
+            setUsers(response.data);
+        });
+    };
+
+    const deleteUser = (id) => {
+        axios.delete(`http://localhost/react-crud/api/user/${id}/delete`).then(function(response) {
+            console.log(response.data);
+            getUsers();
+        });
+    };
+
+    return (
         <React.Fragment>
             <div className="container">
                 <div className="row">
@@ -35,17 +41,17 @@ function Listuser() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users.map((user,key) =>
-                                    <tr key={key}>
-                                        <td style={{marginRight:"20px",marginLeft:"20px"}}>{user.id}</td>
-                                        <td style={{marginRight:"20px",marginLeft:"20px"}}>{user.name}</td>
-                                        <td style={{marginRight:"20px",marginLeft:"20px"}}>{user.email}</td>
-                                        <td style={{marginRight:"20px",marginLeft:"20px"}}>{user.mobile}</td>
-                                        <td>
-                                            <Link className="btn btn-primary" style={{marginRight:"10px",marginLeft:"10px"}} to={`/user/${user.id}/edit`}>Edit</Link>
-                                            <button className="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
+                                    {users.map((user, key) =>
+                                        <tr key={key}>
+                                            <td style={{ marginRight: "20px", marginLeft: "20px" }}>{user.id}</td>
+                                            <td style={{ marginRight: "20px", marginLeft: "20px" }}>{user.name}</td>
+                                            <td style={{ marginRight: "20px", marginLeft: "20px" }}>{user.email}</td>
+                                            <td style={{ marginRight: "20px", marginLeft: "20px" }}>{user.mobile}</td>
+                                            <td>
+                                                <Link className="btn btn-primary" style={{ marginRight: "20px", marginLeft: "20px" }} to={`/user/${user.id}/edit`}>Edit</Link>
+                                                <button onClick={() => deleteUser(user.id)} className="btn btn-danger">Delete</button>
+                                            </td>
+                                        </tr>
                                     )}
                                 </tbody>
                             </table>
@@ -55,8 +61,6 @@ function Listuser() {
             </div>
         </React.Fragment>
     );
-
 }
-
 
 export default Listuser;
