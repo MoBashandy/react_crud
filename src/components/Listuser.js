@@ -10,14 +10,14 @@ function Listuser() {
     }, []);
 
     function getUsers() {
-        axios.get('http://localhost/react-crud/api/user').then(function(response) {
+        axios.get('http://localhost/react_crud/api/user').then(function(response) {
             console.log(response.data);
             setUsers(response.data);
         });
     };
 
     const deleteUser = (id) => {
-        axios.delete(`http://localhost/react-crud/api/user/${id}/delete`).then(function(response) {
+        axios.delete(`http://localhost/react_crud/api/user/${id}/delete`).then(function(response) {
             console.log(response.data);
             getUsers();
         });
